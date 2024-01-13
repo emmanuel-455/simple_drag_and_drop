@@ -6,10 +6,9 @@ let initialX = 0,
 let currentElement = "";
 let moveElement = false;
 
-//Detect touch device
+
 const isTouchDevice = () => {
   try {
-    //We try to create TouchEvent(it would fail for desktops and throw error)
     document.createEvent("TouchEvent");
     deviceType = "touch";
     return true;
@@ -19,13 +18,11 @@ const isTouchDevice = () => {
   }
 };
 
-//Drag and drop functions
 
 function dragStart(e) {
   if (isTouchDevice()) {
     initialX = e.touches[0].clientX;
     initialY = e.touches[0].clientY;
-    //Start movement for touch
     moveElement = true;
     currentElement = e.target;
   } else {
@@ -37,7 +34,7 @@ function dragOver(e) {
   e.preventDefault();
 }
 
-//For touchscreen movement
+
 const touchMove = (e) => {
   if (moveElement) {
     e.preventDefault();
@@ -53,10 +50,10 @@ const touchMove = (e) => {
 
 const drop = (e) => {
   e.preventDefault();
-  //For touch screen
+
   if (isTouchDevice()) {
     moveElement = false;
-    //Get boundaries of div
+
     const currentDropBound = dropContainer.getBoundingClientRect();
     if (
       initialX >= currentDropBound.left &&
@@ -93,7 +90,7 @@ window.onload = async () => {
   }
 
   dragObject.addEventListener("dragstart", dragStart);
-  //for touch screen
+
   dragObject.addEventListener("touchstart", dragStart);
   dragObject.addEventListener("touchend", drop);
   dragObject.addEventListener("touchmove", touchMove);
